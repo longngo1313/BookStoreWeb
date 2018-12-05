@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:utext="${title}"></title>
+</head>
+
+<style>
+table th, table td {
+	padding: 5px;
+}
+
+.message {
+	color: blue;
+}
+</style>
+
+<body>
+	<form action="searchedBooks">
+		<h2>Searched Book</h2>
+		<input type='text' name='bookName' value=''></input> <input
+			type="submit"></input>
+	</form>
+
+
+	<table border="1" th:if="${books}">
+		<tr>
+			<th>More Detail</th>
+			<th>Title</th>
+			<th>Description</th>
+			<th>ISBN</th>
+		</tr>
+		<tr th:each="book : ${books}">
+			<td >
+				<form action="bookDetail" >
+					<input type="hidden" name="bookId" th:value="${book.bookId}" />
+					<input type="submit" value="Detail">
+				</form>
+			</td>
+			<td th:utext="${book.bookTitle}">...</td>
+			<td th:utext="${book.bookDescription}">...</td>
+			<td th:utext="${book.bookISBN}">...</td>
+		</tr>
+	</table>
+
+	<label th:text="${errorMsg}"></label>
+
+</body>
+</html>
