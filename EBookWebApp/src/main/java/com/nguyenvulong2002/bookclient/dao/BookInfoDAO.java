@@ -28,29 +28,30 @@ public class BookInfoDAO {
 
 	private static final String SEARCH_BOOK_BY_ID = "freebookstore/api/v1/search-by-book-id={bookId}";
 
-	private static final String SEARCH_BOOK_BY_WORD = "freebookstore/api/v1/search-by-text={inputText}";
+	private static final String SEARCH_LIST_BOOK_BY_KEY_WORD = "freebookstore/api/v1/search-by-text={inputText}";
 
 	public List<BookInfo> getListBookDetail(){
 
 		RestTemplate restTemplate = new RestTemplate();
 		String newQuery = BASE_URL + GET_LIST_BOOK_DETAIL;
-		
+
 		BookInfoResponse response = restTemplate.getForObject(newQuery, BookInfoResponse.class);
 		List<BookInfo> list = response.getBooks();
 
-		if (list != null) {
-			LoggerUtil.setLog(this, eStatusLog.INFO, "", list);
-			return list;
-		}else {
-			LoggerUtil.setLog(this, eStatusLog.INFO, "", " IS NULL");
+		if(list == null || list.isEmpty()) {
+			LoggerUtil.setLog(this,  eStatusLog.ERROR, "getListBookDetail", "NULL");
 			return null;
 		}
+
+		LoggerUtil.setLog(this, eStatusLog.INFO, "getListBookDetail", list);
+		return list;
+
 	}
 
 	public List<BookInfo> getListBookDetail2(){
 		RestTemplate restTemplate = new RestTemplate();
 		String newQuery = BASE_URL + GET_LIST_BOOK_DETAIL;
-		
+
 		@SuppressWarnings("unchecked")
 		LinkedHashMap<String, Object> usersMap = restTemplate.getForObject(newQuery, LinkedHashMap.class);
 
@@ -62,40 +63,41 @@ public class BookInfoDAO {
 	public BookInfo getBookById(String id) {
 		String newQuery = BASE_URL + SEARCH_BOOK_BY_ID;
 		RestTemplate restTemplate = new RestTemplate();
-		
+
 		BookInfoResponse bookResponse = restTemplate.getForObject( newQuery, BookInfoResponse.class, id);
-		
+
 		if(bookResponse == null) {
 			return null;
 		}
-		
+
 		if(bookResponse.getBooks() == null) {
 			return null;
 		}
-		
+
 		if(bookResponse.getBooks().isEmpty()) {
 			return null;
 		}
 		BookInfo book = bookResponse.getBooks().get(0);
-		
+
 		return book;
 	}
 
 	public List<BookInfo> getListBookByTitle(String title){
 		RestTemplate restTemplate = new RestTemplate();
-		String newQuery = BASE_URL + SEARCH_BOOK_BY_WORD;
-		
+		String newQuery = BASE_URL + SEARCH_LIST_BOOK_BY_KEY_WORD;
+
 		BookInfoResponse response = restTemplate.getForObject(newQuery, BookInfoResponse.class, title);
-		
+
 		List<BookInfo> list = response.getBooks();
 
-		if (list != null) {
-			LoggerUtil.setLog(this, eStatusLog.INFO, "", list);
-			return list;
-		}else {
-			LoggerUtil.setLog(this, eStatusLog.INFO, "", " DATA IS NULL");
+		if(list == null || list.isEmpty()) {
+			LoggerUtil.setLog(this,  eStatusLog.ERROR, "getListBookByTitle", "NULL");
 			return null;
 		}
+
+		LoggerUtil.setLog(this, eStatusLog.INFO, "getListBookByTitle", list);
+		return list;
+
 	}
 
 

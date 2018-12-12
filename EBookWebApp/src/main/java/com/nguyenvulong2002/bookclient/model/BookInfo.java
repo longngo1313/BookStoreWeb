@@ -128,6 +128,11 @@ public class BookInfo {
 		this.postDate = postDate;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "BookInfo [bookId=" + bookId + ", bookTitle=" + bookTitle + ", bookDescription=" + bookDescription
+				+ ", bookPage=" + bookPage + ", bookFormat=" + bookFormat + ", bookEdition=" + bookEdition
+				+ ", bookISBN=" + bookISBN + ", postDate=" + postDate + ", author=" + author + "]";
+	}
+
 }

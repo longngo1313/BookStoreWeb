@@ -47,6 +47,11 @@ public class AuthorInfo {
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
+
+	@Override
+	public String toString() {
+		return "AuthorInfo [authorId=" + authorId + ", authorName=" + authorName + ", authorAbout=" + authorAbout + "]";
+	}
 	
 	
 }

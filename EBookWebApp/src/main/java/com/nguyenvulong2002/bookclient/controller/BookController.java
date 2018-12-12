@@ -24,16 +24,15 @@ public class BookController {
 	@RequestMapping(value = { "/", "/listbooks" }, method = RequestMethod.GET)
 	public String viewListBook(Model model) {
 		List<BookInfo> listBook = bookDAO.getListBookDetail();
-		LoggerUtil.setLog(this, eStatusLog.INFO, "", listBook);
+		LoggerUtil.setLog(this, eStatusLog.INFO, "viewListBook", listBook);
 		model.addAttribute("books", listBook);
 		return "listBook";
 	}
 	
 	@RequestMapping(value = "/searchedBooks", method = RequestMethod.GET)
 	public String showListBookByTitle(@RequestParam(required=false, name = "bookName") String searchBook, Model model) {
-		LoggerUtil.setLog(this, eStatusLog.INFO, " searchBook ", searchBook);
 		List<BookInfo> listBook = bookDAO.getListBookByTitle(searchBook);
-		LoggerUtil.setLog(this, eStatusLog.INFO, "", listBook);
+		LoggerUtil.setLog(this, eStatusLog.INFO, "showListBookByTitle", listBook);
 		
 		if(listBook == null || listBook.isEmpty()) {
 			model.addAttribute("errorMsg", "Data not found");
@@ -45,15 +44,24 @@ public class BookController {
 	
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
 	public String viewMenu(Model model) {
+		List<BookInfo> listBook = bookDAO.getListBookByTitle("Spring");
+		List<BookInfo> newBook  = listBook.subList(1, 4);
+		LoggerUtil.setLog(this, eStatusLog.INFO, "showListBookByTitle", listBook);
+		
+		if(listBook == null || listBook.isEmpty()) {
+			model.addAttribute("errorMsg", "Data not found");
+		}else {
+			model.addAttribute("booksRight", newBook);
+			model.addAttribute("booksLeft", newBook);
+		}
 		return "menu";
 	}
 	
 	@RequestMapping(value = "/bookDetail", method = RequestMethod.GET)
 	public String viewBook(@RequestParam(required=false, name = "bookId") String bookId, Model model) {
 		
-		LoggerUtil.setLog(this, eStatusLog.INFO, " bookId ", bookId);
 		BookInfo book = bookDAO.getBookById(bookId);
-		LoggerUtil.setLog(this, eStatusLog.INFO, "", book);
+		LoggerUtil.setLog(this, eStatusLog.INFO, "viewBook", book);
 		
 		if(book == null) {
 			model.addAttribute("errorMsg", "Data not found");

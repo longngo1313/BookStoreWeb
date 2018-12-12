@@ -16,7 +16,7 @@ table th, table td {
 
 <body>
 	<form action="searchedBooks">
-		<h2>Searched Book</h2>
+		<h2>Searched Book 1</h2>
 		<input type='text' name='bookName' value=''></input> <input
 			type="submit"></input>
 	</form>
@@ -30,10 +30,10 @@ table th, table td {
 			<th>ISBN</th>
 		</tr>
 		<tr th:each="book : ${books}">
-			<td >
-				<form action="bookDetail" >
-					<input type="hidden" name="bookId" th:value="${book.bookId}" />
-					<input type="submit" value="Detail">
+			<td>
+				<form action="bookDetail">
+					<input type="hidden" name="bookId" th:value="${book.bookId}" /> <input
+						type="submit" value="Detail">
 				</form>
 			</td>
 			<td th:utext="${book.bookTitle}">...</td>
@@ -41,6 +41,7 @@ table th, table td {
 			<td th:utext="${book.bookISBN}">...</td>
 		</tr>
 	</table>
+
 
 	<label th:text="${errorMsg}"></label>
 
