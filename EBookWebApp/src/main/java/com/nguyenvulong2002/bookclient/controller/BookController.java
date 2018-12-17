@@ -43,7 +43,7 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
-	public String viewMenu(Model model) {
+	public String viewMenu(@RequestParam(required=false, name = "bookName") String searchBook, Model model) {
 		List<BookInfo> listBook = bookDAO.getListBookByTitle("Spring");
 		List<BookInfo> newBook  = listBook.subList(1, 4);
 		LoggerUtil.setLog(this, eStatusLog.INFO, "showListBookByTitle", listBook);
@@ -55,6 +55,32 @@ public class BookController {
 			model.addAttribute("booksLeft", newBook);
 		}
 		return "menu";
+	}
+	
+	@RequestMapping(value = "/menuWithSearchData", method = RequestMethod.GET)
+	public String viewSearchedMenu(@RequestParam(required=false, name = "bookName") String searchBook, Model model) {
+		
+		List<BookInfo> listBook = bookDAO.getListBookByTitle("Spring");
+		List<BookInfo> newBook  = listBook.subList(1, 4);
+		LoggerUtil.setLog(this, eStatusLog.INFO, "showListBookByTitle", listBook);
+		
+		if(listBook == null || listBook.isEmpty()) {
+			model.addAttribute("errorMsg", "Data not found");
+		}else {
+			model.addAttribute("booksRight", newBook);
+			model.addAttribute("booksLeft", newBook);
+		}
+		
+		//Search book by words
+		List<BookInfo> listResult = bookDAO.getListBookByTitle(searchBook);
+		LoggerUtil.setLog(this, eStatusLog.INFO, "showListBookByTitle------------------------------", listResult.size());
+		
+		if(listResult == null || listResult.isEmpty()) {
+			model.addAttribute("errorMsg", "Data not found");
+		}else {
+			model.addAttribute("books", listResult);
+		}
+		return "menuWithSearchData";
 	}
 	
 	@RequestMapping(value = "/bookDetail", method = RequestMethod.GET)

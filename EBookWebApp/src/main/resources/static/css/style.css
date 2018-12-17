@@ -4334,7 +4334,7 @@ input[type="button"].btn-block {
   .close:hover, .close:focus {
     color: #000;
     text-decoration: none;
-    opacity: .75; }
+    opacity: 1; }
   .close:not(:disabled):not(.disabled) {
     cursor: pointer; }
 
