@@ -23,7 +23,7 @@ public class BookController {
 	
 	@RequestMapping(value = "/listbooks" , method = RequestMethod.GET)
 	public String viewListBook(Model model) {
-		List<BookInfo> listBook = bookDAO.getListBookDetail();
+		List<BookInfo> listBook = bookDAO.getListBookByTitle("");
 		LoggerUtil.setLog(this, eStatusLog.INFO, "viewListBook", listBook);
 		model.addAttribute("books", listBook);
 		return "listBook";

@@ -43,13 +43,23 @@
 		</button>
 		<div class="collapse navbar-collapse" id="ftco-nav">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a href="searchedBooks" class="nav-link">Home</a></li>
 				<li class="nav-item active"><a href="menu.html"
-					class="nav-link">Menu</a></li>
-				<li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-				<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+					class="nav-link">Home</a></li>
 				<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 				<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+				<li class="nav-item">
+					<div class="nav-link">
+						<form action="menuWithSearchData" class="form-search">
+							<input style="width: 100px" type='text' value="" name='bookName' class="input-medium search-query"> 
+							<span style="width: 100px">
+								<button class="btn btn-outline-secondary" type="submit">
+									<i class="icon-search icon-white"></i>
+								</button>
+							</span>
+						</form>
+					</div>
+				</li>
+
 			</ul>
 		</div>
 	</div>

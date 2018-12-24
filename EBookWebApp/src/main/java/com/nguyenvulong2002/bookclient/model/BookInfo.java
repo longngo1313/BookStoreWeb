@@ -34,14 +34,14 @@ public class BookInfo {
 	@JsonProperty("authors")
 	private List<AuthorInfo> author;
 	
-	@JsonProperty("coverImage")
-	private CoverImage coverImage;
+	@JsonProperty("imageCloud")
+	private String coverImage;
 	
 	@JsonProperty("category")
-	private Category category;
+	private String category;
 	
 	@JsonProperty("downloadLink")
-	private DownloadLink downloadLink;
+	private String downloadLink;
 
 	public BookInfo() {
 		super();
@@ -50,8 +50,8 @@ public class BookInfo {
 	
 
 	public BookInfo(String bookId, String bookTitle, String bookDescription, String bookPage, String bookFormat,
-			String bookEdition, String bookISBN, String postDate, List<AuthorInfo> author, CoverImage coverImage,
-			Category category, DownloadLink downloadLink) {
+			String bookEdition, String bookISBN, String postDate, List<AuthorInfo> author, String coverImage,
+			String category, String downloadLink) {
 		super();
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
@@ -147,37 +147,37 @@ public class BookInfo {
 
 
 
-	public CoverImage getCoverImage() {
+	public String getCoverImage() {
 		return coverImage;
 	}
 
 
 
-	public void setCoverImage(CoverImage coverImage) {
+	public void setCoverImage(String coverImage) {
 		this.coverImage = coverImage;
 	}
 
 
 
-	public Category getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
 
 
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
 
 
-	public DownloadLink getDownloadLink() {
+	public String getDownloadLink() {
 		return downloadLink;
 	}
 
 
 
-	public void setDownloadLink(DownloadLink downloadLink) {
+	public void setDownloadLink(String downloadLink) {
 		this.downloadLink = downloadLink;
 	}
 

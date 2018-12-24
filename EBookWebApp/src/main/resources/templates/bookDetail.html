@@ -44,8 +44,8 @@
 			<h2>Books Detail</h2>
 
 			<div class="row no-gutters d-flex">
-				<img class="col-lg-3 d-flex ftco-animate" th:src="${book.coverImage.imageUrl}" alt="Smiley face"
-					height="300px">
+				<img class="col-lg-3 d-flex ftco-animate" th:src="${book.coverImage}" alt="Smiley face"
+					height="350px">
 
 
 				<table class="col-lg-8 d-flex ftco-animate ml-3" >
@@ -80,7 +80,7 @@
 			
 			<h2 class="justify-content-center mt-4">Download Link</h2>
 			
-			<a th:href="${book.downloadLink.linkUrl}"><span th:text="${book.downloadLink.linkUrl}"></span></a>
+			<a th:href="${book.downloadLink}"><span th:text="${book.downloadLink}"></span></a>
 		</div>
 	</section>
 	<th:block th:include="/_about"></th:block>

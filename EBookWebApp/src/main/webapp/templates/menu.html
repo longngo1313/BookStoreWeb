@@ -40,17 +40,20 @@
 	<th:block th:include="/_naviToolBar"></th:block>
 	<!-- END nav -->
 
+	<div
+		style="background-image: url(../images/bg_search.jpg); background-size: cover; height: 600px; text-align:center;">
+		<div class="overlay"></div>
+		<div class="mb-5 pb-3" style= "position: relative; top: 50%; transform: translateY(-50%); height: 100px">
+			<form action="menuWithSearchData" >
+				<h2>Searched Book</h2>
+				<input style="width: 1000px" type='text' name='bookName' value=''></input>
+				<input type="submit" value="Search"></input>
+			</form>
+		</div>
+	</div>
 
 	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3">
-				<form action="menuWithSearchData">
-					<h2>Searched Book</h2>
-					<input style="width: 1000px" type='text' name='bookName' value=''></input>
-					<input type="submit" value="Search"></input>
-				</form>
-			</div>
-		</div>
+
 		<div class="container-wrap">
 			<div class="row no-gutters d-flex">
 				<div class="col-lg-4 d-flex ftco-animate"

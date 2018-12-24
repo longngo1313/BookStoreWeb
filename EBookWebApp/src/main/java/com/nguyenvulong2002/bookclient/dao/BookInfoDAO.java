@@ -1,22 +1,18 @@
 package com.nguyenvulong2002.bookclient.dao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import com.nguyenvulong2002.bookclient.DTO.BookInfoRequest;
 import com.nguyenvulong2002.bookclient.DTO.BookInfoResponse;
 import com.nguyenvulong2002.bookclient.model.BookInfo;
-import com.nguyenvulong2002.bookclient.utils.LoggerUtil;
-import com.nguyenvulong2002.bookclient.utils.LoggerUtil.eStatusLog;
 
 
 @Repository
@@ -24,84 +20,56 @@ public class BookInfoDAO {
 
 	private static final String BASE_URL = "http://54.145.176.109/";
 
-	private static final String GET_LIST_BOOK_DETAIL = "freebookstore/api/v1/get-list-books";
+	private static final String SEARCH_BOOK_BY_ID = "freebookstore/api/v2/search-book-by-id";
 
-	private static final String SEARCH_BOOK_BY_ID = "freebookstore/api/v1/search-by-book-id={bookId}";
+	private static final String SEARCH_LIST_BOOK_BY_KEY_WORD = "freebookstore/api/v2/search-book-by-title";
 
-	private static final String SEARCH_LIST_BOOK_BY_KEY_WORD = "freebookstore/api/v1/search-by-text={inputText}";
-
-	public List<BookInfo> getListBookDetail(){
-
-		RestTemplate restTemplate = new RestTemplate();
-		String newQuery = BASE_URL + GET_LIST_BOOK_DETAIL;
-
-		BookInfoResponse response = restTemplate.getForObject(newQuery, BookInfoResponse.class);
-		List<BookInfo> list = response.getBooks();
-
-		if(list == null || list.isEmpty()) {
-			LoggerUtil.setLog(this,  eStatusLog.ERROR, "getListBookDetail", "NULL");
-			return null;
-		}
-
-		LoggerUtil.setLog(this, eStatusLog.INFO, "getListBookDetail", list);
-		return list;
-
-	}
-
-	public List<BookInfo> getListBookDetail2(){
-		RestTemplate restTemplate = new RestTemplate();
-		String newQuery = BASE_URL + GET_LIST_BOOK_DETAIL;
-
-		@SuppressWarnings("unchecked")
-		LinkedHashMap<String, Object> usersMap = restTemplate.getForObject(newQuery, LinkedHashMap.class);
-
-		@SuppressWarnings("unchecked")
-		List<BookInfo>  bookInfos = (List<BookInfo>) usersMap.get("books");
-		return bookInfos;
-	}
-
+	
 	public BookInfo getBookById(String id) {
-		String newQuery = BASE_URL + SEARCH_BOOK_BY_ID;
+		
+		String query = BASE_URL + SEARCH_BOOK_BY_ID;
+		
+		BookInfoRequest requestBook = new BookInfoRequest();
+		requestBook.setBookId(id);
+		requestBook.setPage("1");
+		requestBook.setRowPerPage("15");
+		
+		HttpHeaders requestHeaders = new HttpHeaders();
+		requestHeaders.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		HttpEntity<?> httpEntity = new HttpEntity<BookInfoRequest>(requestBook, requestHeaders);
 		RestTemplate restTemplate = new RestTemplate();
-
-		BookInfoResponse bookResponse = restTemplate.getForObject( newQuery, BookInfoResponse.class, id);
-
-		if(bookResponse == null) {
-			return null;
-		}
-
-		if(bookResponse.getBooks() == null) {
-			return null;
-		}
-
-		if(bookResponse.getBooks().isEmpty()) {
-			return null;
-		}
-		BookInfo book = bookResponse.getBooks().get(0);
-
+		
+		ResponseEntity<BookInfoResponse[]> model = restTemplate
+				.exchange(query, HttpMethod.POST, httpEntity, BookInfoResponse[].class);
+		
+		BookInfo book = model.getBody()[0].getBooks().get(0);
 		return book;
 	}
 
 	public List<BookInfo> getListBookByTitle(String title){
+		String query = BASE_URL + SEARCH_LIST_BOOK_BY_KEY_WORD;
+		
+		BookInfoRequest requestBook = new BookInfoRequest();
+		requestBook.setBookTitle(title);
+		requestBook.setPage("1");
+		requestBook.setRowPerPage("15");
+		
+		HttpHeaders requestHeaders = new HttpHeaders();
+		requestHeaders.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		HttpEntity<?> httpEntity = new HttpEntity<BookInfoRequest>(requestBook, requestHeaders);
 		RestTemplate restTemplate = new RestTemplate();
-		String newQuery = BASE_URL + SEARCH_LIST_BOOK_BY_KEY_WORD;
-
-		BookInfoResponse response = restTemplate.getForObject(newQuery, BookInfoResponse.class, title);
-
-		List<BookInfo> list = response.getBooks();
-
-		if(list == null || list.isEmpty()) {
-			LoggerUtil.setLog(this,  eStatusLog.ERROR, "getListBookByTitle", "NULL");
-			return null;
-		}
-
-		LoggerUtil.setLog(this, eStatusLog.INFO, "getListBookByTitle", list);
-		return list;
+		
+		ResponseEntity<BookInfoResponse[]> model = restTemplate
+				.exchange(query, HttpMethod.POST, httpEntity, BookInfoResponse[].class);
+		
+		List<BookInfo> books = model.getBody()[0].getBooks();
+		return books;
 
 	}
-
-
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.nguyenvulong2002.bookclient;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.nguyenvulong2002.bookclient.dao.BookInfoDAO;
 import com.nguyenvulong2002.bookclient.model.BookInfo;
+import com.nguyenvulong2002.bookclient.utils.LoggerUtil;
+import com.nguyenvulong2002.bookclient.utils.LoggerUtil.eStatusLog;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,12 +28,6 @@ public class BookInfoDAOTest {
 	private BookInfoDAO bookDao;
 	
 	@Test
-	public void getAllBookTest() {
-		List<BookInfo> list = bookDao.getListBookDetail2();
-		assertNotNull(list);
-	}
-	
-	@Test
 	public void getBookByIdTest() {
 		BookInfo book = bookDao.getBookById(BOOK_ID);
 		assertNotNull(book);
@@ -40,6 +37,7 @@ public class BookInfoDAOTest {
 	public void getListBookByTitle() {
 		List<BookInfo> list = bookDao.getListBookByTitle(TITLE);
 		assertNotNull(list);
+		assertFalse(list.isEmpty());
 	}
 	
 	
