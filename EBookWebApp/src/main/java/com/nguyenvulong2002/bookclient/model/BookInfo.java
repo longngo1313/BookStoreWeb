@@ -33,13 +33,25 @@ public class BookInfo {
 	
 	@JsonProperty("authors")
 	private List<AuthorInfo> author;
+	
+	@JsonProperty("coverImage")
+	private CoverImage coverImage;
+	
+	@JsonProperty("category")
+	private Category category;
+	
+	@JsonProperty("downloadLink")
+	private DownloadLink downloadLink;
 
 	public BookInfo() {
 		super();
 	}
 
+	
+
 	public BookInfo(String bookId, String bookTitle, String bookDescription, String bookPage, String bookFormat,
-			String bookEdition, String bookISBN, String postDate, List<AuthorInfo> author) {
+			String bookEdition, String bookISBN, String postDate, List<AuthorInfo> author, CoverImage coverImage,
+			Category category, DownloadLink downloadLink) {
 		super();
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
@@ -50,7 +62,12 @@ public class BookInfo {
 		this.bookISBN = bookISBN;
 		this.postDate = postDate;
 		this.author = author;
+		this.coverImage = coverImage;
+		this.category = category;
+		this.downloadLink = downloadLink;
 	}
+
+
 
 	public List<AuthorInfo> getAuthor() {
 		return author;
@@ -128,11 +145,53 @@ public class BookInfo {
 		this.postDate = postDate;
 	}
 
+
+
+	public CoverImage getCoverImage() {
+		return coverImage;
+	}
+
+
+
+	public void setCoverImage(CoverImage coverImage) {
+		this.coverImage = coverImage;
+	}
+
+
+
+	public Category getCategory() {
+		return category;
+	}
+
+
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+
+
+	public DownloadLink getDownloadLink() {
+		return downloadLink;
+	}
+
+
+
+	public void setDownloadLink(DownloadLink downloadLink) {
+		this.downloadLink = downloadLink;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "BookInfo [bookId=" + bookId + ", bookTitle=" + bookTitle + ", bookDescription=" + bookDescription
 				+ ", bookPage=" + bookPage + ", bookFormat=" + bookFormat + ", bookEdition=" + bookEdition
-				+ ", bookISBN=" + bookISBN + ", postDate=" + postDate + ", author=" + author + "]";
+				+ ", bookISBN=" + bookISBN + ", postDate=" + postDate + ", author=" + author + ", coverImage="
+				+ coverImage + ", category=" + category + ", downloadLink=" + downloadLink + "]";
 	}
+
+
+	
 
 }

@@ -43,32 +43,44 @@
 		<div class="container">
 			<h2>Books Detail</h2>
 
-			<table border="1">
-				<tr>
-					<th>Title</th>
-					<th>Description</th>
-					<th>ISBN</th>
-				</tr>
-				<tr th:with="book = ${book}">
-					<td th:utext="${book.bookTitle}">...</td>
-					<td th:utext="${book.bookDescription}">...</td>
-					<td th:utext="${book.bookISBN}">...</td>
-				</tr>
-			</table>
+			<div class="row no-gutters d-flex">
+				<img class="col-lg-3 d-flex ftco-animate" th:src="${book.coverImage.imageUrl}" alt="Smiley face"
+					height="300px">
 
-			<h2>Author Detail</h2>
+
+				<table class="col-lg-8 d-flex ftco-animate ml-3" >
+					<tr>
+						<th>Title</th>
+						<th>Description</th>
+						<th>ISBN</th>
+					</tr>
+					<tr>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
+							th:utext="${book.bookTitle}">...</td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
+							th:utext="${book.bookDescription}">...</td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
+							th:utext="${book.bookISBN}">...</td>
+					</tr>
+				</table>
+			</div>
+			<h2 class="justify-content-center mt-4">Author Detail</h2>
 			<table border="1">
 				<tr>
-					<th>Author ID</th>
 					<th>Author Name</th>
 					<th>About</th>
 				</tr>
 				<tr th:each="author: ${book.author}">
-					<td th:utext="${author.authorId}">...</td>
-					<td th:utext="${author.authorName}">...</td>
-					<td th:utext="${author.authorAbout}">...</td>
+					<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
+						th:utext="${author.authorName}">...</td>
+					<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
+						th:utext="${author.authorAbout}">...</td>
 				</tr>
 			</table>
+			
+			<h2 class="justify-content-center mt-4">Download Link</h2>
+			
+			<a th:href="${book.downloadLink.linkUrl}"><span th:text="${book.downloadLink.linkUrl}"></span></a>
 		</div>
 	</section>
 	<th:block th:include="/_about"></th:block>

@@ -21,7 +21,7 @@ public class BookController {
 	@Autowired
 	private BookInfoDAO bookDAO;
 	
-	@RequestMapping(value = { "/", "/listbooks" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/listbooks" , method = RequestMethod.GET)
 	public String viewListBook(Model model) {
 		List<BookInfo> listBook = bookDAO.getListBookDetail();
 		LoggerUtil.setLog(this, eStatusLog.INFO, "viewListBook", listBook);
@@ -42,7 +42,7 @@ public class BookController {
 		return "searchedBooks";
 	}
 	
-	@RequestMapping(value = "/menu", method = RequestMethod.GET)
+	@RequestMapping(value = {"/" , "/menu"}, method = RequestMethod.GET)
 	public String viewMenu(@RequestParam(required=false, name = "bookName") String searchBook, Model model) {
 		List<BookInfo> listBook = bookDAO.getListBookByTitle("Spring");
 		List<BookInfo> newBook  = listBook.subList(1, 4);

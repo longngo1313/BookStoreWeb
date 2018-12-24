@@ -48,23 +48,23 @@
 					<input style="width:1000px"  type='text' name='bookName' value=''></input> <input
 						type="submit" value="Search"></input>
 				</form>
-				<table th:if="${books}">
+				<table border="1" th:if="${books}" class="justify-content-center mt-5 pb-3 pt-3">
 					<tr>
-						<th>More Detail</th>
-						<th>Title</th>
-						<th>Description</th>
-						<th>Format</th>
+						<th style="font-size: 20px;" class="justify-content-center pb-3 pt-3 pl-3 pr-3" >More Detail</th>
+						<th style="font-size: 20px;" class="justify-content-center pb-3 pt-3 pl-3 pr-3" >Title</th>
+						<th style="font-size: 20px;" class="justify-content-center pb-3 pt-3 pl-3 pr-3" >Description</th>
+						<th style="font-size: 20px;" class="justify-content-center pb-3 pt-3 pl-3 pr-3" >Format</th>
 					</tr>
 					<tr th:each="book : ${books}">
-						<td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3">
 							<form action="bookDetail">
 								<input type="hidden" name="bookId" th:value="${book.bookId}" />
 								<input type="submit" value="Detail">
 							</form>
 						</td>
-						<td th:utext="${book.bookTitle}">...</td>
-						<td th:utext="${book.bookDescription}">...</td>
-						<td th:utext="${book.bookFormat}">...</td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3" th:utext="${book.bookTitle}">...</td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3" th:utext="${book.bookDescription}">...</td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3" th:utext="${book.bookFormat}">...</td>
 					</tr>
 				</table>
 
