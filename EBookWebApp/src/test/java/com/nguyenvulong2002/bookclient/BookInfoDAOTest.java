@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.nguyenvulong2002.bookclient.DTO.BookInfoRequest;
+import com.nguyenvulong2002.bookclient.DTO.BookInfoResponse;
 import com.nguyenvulong2002.bookclient.dao.BookInfoDAO;
 import com.nguyenvulong2002.bookclient.model.BookInfo;
 import com.nguyenvulong2002.bookclient.utils.LoggerUtil;
@@ -29,15 +31,27 @@ public class BookInfoDAOTest {
 	
 	@Test
 	public void getBookByIdTest() {
-		BookInfo book = bookDao.getBookById(BOOK_ID);
-		assertNotNull(book);
+		
+		BookInfoRequest requestBook = new BookInfoRequest();
+		requestBook.setBookId(BOOK_ID);
+		requestBook.setPage("1");
+		requestBook.setRowPerPage("8");
+		
+		BookInfoResponse book = bookDao.getBookById(requestBook);
+		assertNotNull(book.getBooks());
 	}
 	
 	@Test
 	public void getListBookByTitle() {
-		List<BookInfo> list = bookDao.getListBookByTitle(TITLE);
-		assertNotNull(list);
-		assertFalse(list.isEmpty());
+		
+		BookInfoRequest requestBook = new BookInfoRequest();
+		requestBook.setBookTitle(TITLE);
+		requestBook.setPage("1");
+		requestBook.setRowPerPage("8");
+		
+		BookInfoResponse list = bookDao.getListBookByTitle(requestBook);
+		assertNotNull(list.getBooks());
+		assertFalse(list.getBooks().isEmpty());
 	}
 	
 	

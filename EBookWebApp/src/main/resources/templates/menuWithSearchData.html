@@ -33,10 +33,18 @@
 <link rel="stylesheet" href="css/flaticon.css">
 <link rel="stylesheet" href="css/icomoon.css">
 <link rel="stylesheet" href="css/style.css">
+
+<style>
+td {
+	color: white;
+}
+</style>
+
+
 </head>
 <body>
 
-	<th:block th:include="/_naviToolBar"></th:block>  
+	<th:block th:include="/_naviToolBar"></th:block>
 	<!-- END nav -->
 
 
@@ -45,15 +53,21 @@
 			<div class="row justify-content-center mb-5 pb-3">
 				<form action="menuWithSearchData">
 					<h2>Searched Book</h2>
-					<input style="width:1000px"  type='text' name='bookName' value=''></input> <input
-						type="submit" value="Search"></input>
+					<input style="width: 1000px" type='text' name='bookName' value=''></input>
+					<input type="submit" value="Search"></input>
 				</form>
-				<table border="1" th:if="${books}" class="justify-content-center mt-5 pb-3 pt-3">
+				<table border="1" th:if="${books}"
+					class="justify-content-center mt-5 pb-3 pt-3">
 					<tr>
-						<th style="font-size: 20px;" class="justify-content-center pb-3 pt-3 pl-3 pr-3" >More Detail</th>
-						<th style="font-size: 20px;" class="justify-content-center pb-3 pt-3 pl-3 pr-3" >Title</th>
-						<th style="font-size: 20px;" class="justify-content-center pb-3 pt-3 pl-3 pr-3" >Description</th>
-						<th style="font-size: 20px;" class="justify-content-center pb-3 pt-3 pl-3 pr-3" >Format</th>
+						<th style="font-size: 20px;"
+							class="justify-content-center pb-3 pt-3 pl-3 pr-3">More
+							Detail</th>
+						<th style="font-size: 20px;"
+							class="justify-content-center pb-3 pt-3 pl-3 pr-3">Title</th>
+						<th style="font-size: 20px;"
+							class="justify-content-center pb-3 pt-3 pl-3 pr-3">Description</th>
+						<th style="font-size: 20px;"
+							class="justify-content-center pb-3 pt-3 pl-3 pr-3">Format</th>
 					</tr>
 					<tr th:each="book : ${books}">
 						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3">
@@ -62,17 +76,36 @@
 								<input type="submit" value="Detail">
 							</form>
 						</td>
-						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3" th:utext="${book.bookTitle}">...</td>
-						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3" th:utext="${book.bookDescription}">...</td>
-						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3" th:utext="${book.bookFormat}">...</td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
+							th:utext="${book.bookTitle}">...</td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
+							th:utext="${book.bookDescription}">...</td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
+							th:utext="${book.bookFormat}">...</td>
 					</tr>
 				</table>
-
+				<form action="menuWithSearchData">
+					<ul class="pagination mt-3" style="height: 30px;"
+						th:each="pageNo : ${#numbers.sequence(1, rpTotalPage)}">
+						<li class="ml-2"
+							style="font-size: 15px; text-align: center; height: 30px;"
+							th:if="${pageNo == rpPage}"><a href="#" th:text="${pageNo}"
+							style="font-weight: bold; font-size: 17px; color: white;">..</a></li>
+						<li class="ml-2"
+							style="font-size: 15px; text-align: center; height: 30px;"
+							th:unless="${pageNo == rpPage}"><a href="#"
+							th:text="${pageNo}">..</a></li>
+					</ul>
+					<input type="hidden" name='bookName' value='${searchBook}'>
+					<input type="hidden" name='page' value='2'>
+					<input type="submit"
+					value="Search"></input>
+				</form>
 			</div>
 		</div>
 	</section>
-	
-	<th:block th:include="/_about"></th:block>  
+
+	<th:block th:include="/_about"></th:block>
 	<!-- END About -->
 
 

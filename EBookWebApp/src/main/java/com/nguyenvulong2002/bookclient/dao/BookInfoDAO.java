@@ -23,17 +23,11 @@ public class BookInfoDAO {
 	private static final String SEARCH_BOOK_BY_ID = "freebookstore/api/v2/search-book-by-id";
 
 	private static final String SEARCH_LIST_BOOK_BY_KEY_WORD = "freebookstore/api/v2/search-book-by-title";
-
 	
-	public BookInfo getBookById(String id) {
+	public BookInfoResponse getBookById(BookInfoRequest requestBook) {
 		
 		String query = BASE_URL + SEARCH_BOOK_BY_ID;
 		
-		BookInfoRequest requestBook = new BookInfoRequest();
-		requestBook.setBookId(id);
-		requestBook.setPage("1");
-		requestBook.setRowPerPage("15");
-		
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -43,19 +37,14 @@ public class BookInfoDAO {
 		
 		ResponseEntity<BookInfoResponse[]> model = restTemplate
 				.exchange(query, HttpMethod.POST, httpEntity, BookInfoResponse[].class);
-		
-		BookInfo book = model.getBody()[0].getBooks().get(0);
-		return book;
+
+		return model.getBody()[0];
 	}
 
-	public List<BookInfo> getListBookByTitle(String title){
+	public BookInfoResponse getListBookByTitle(BookInfoRequest requestBook){
+		
 		String query = BASE_URL + SEARCH_LIST_BOOK_BY_KEY_WORD;
 		
-		BookInfoRequest requestBook = new BookInfoRequest();
-		requestBook.setBookTitle(title);
-		requestBook.setPage("1");
-		requestBook.setRowPerPage("15");
-		
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -65,11 +54,9 @@ public class BookInfoDAO {
 		
 		ResponseEntity<BookInfoResponse[]> model = restTemplate
 				.exchange(query, HttpMethod.POST, httpEntity, BookInfoResponse[].class);
-		
-		List<BookInfo> books = model.getBody()[0].getBooks();
-		return books;
+
+		return model.getBody()[0];
 
 	}
-
-
+	
 }
