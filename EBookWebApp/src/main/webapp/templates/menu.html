@@ -41,13 +41,15 @@
 	<!-- END nav -->
 
 	<div
-		style="background-image: url(../images/bg_search.jpg); background-size: cover; height: 600px; text-align:center;">
+		style="background-image: url(https://res.cloudinary.com/freebookstore/image/upload/v1545707571/MB0000000000.jpg); background-size: cover; height: 600px; text-align: center;">
 		<div class="overlay"></div>
-		<div class="mb-5 pb-3" style= "position: relative; top: 50%; transform: translateY(-50%); height: 100px">
-			<form action="menuWithSearchData" >
-				<h2>Searched Book</h2>
-				<input style="width: 1000px" type='text' name='bookName' value=''></input>
-				<input type="submit" value="Search"></input>
+		<div class="mb-5 pb-3"
+			style="position: relative; top: 50%; transform: translateY(-50%); height: 100px">
+			<form action="menuWithSearchData">
+				<h2 style="color: #000000; font-size: 62px;">Searched Book</h2>
+				<input style="width: 1000px; height: 40px" type='text'
+					name='bookName' value=''></input> <input type="submit"
+					value="Search"></input>
 			</form>
 		</div>
 	</div>
@@ -57,10 +59,10 @@
 		<div class="container-wrap">
 			<div class="row no-gutters d-flex">
 				<div class="col-lg-4 d-flex ftco-animate"
-					th:each="book : ${booksRight}">
+					th:each="book : ${upperList}">
 					<div class="services-wrap d-flex">
 						<a href="#" class="img"
-							style="background-image: url(https://res.cloudinary.com/freebookstore/image/upload/v1544082114/image/CV0000000009.png);"></a>
+							th:style="'background-image:url(' + @{${book.coverImage}} + '); background-size: contain;'"></a>
 						<div class="text p-4">
 							<div>
 								<h3 th:utext="${book.bookTitle}">...</h3>
@@ -78,14 +80,15 @@
 
 
 				<div class="col-lg-4 d-flex ftco-animate"
-					th:each="book : ${booksLeft}">
+					th:each="book : ${lowerList}">
 					<div class="services-wrap d-flex">
 						<a href="#" class="img order-lg-last"
-							style="background-image: url(https://res.cloudinary.com/freebookstore/image/upload/v1544082114/image/CV0000000009.png);"></a>
+							th:style="'background-image:url(' + @{${book.coverImage}} + '); background-size: contain;'"></a>
 						<div class="text p-4">
 							<h3 th:utext="${book.bookTitle}">...</h3>
-							<p>Far far away, behind the word mountains, far from the
-								countries Vokalia and Consonantia</p>
+							<p
+								style="height: 130px; overflow: hidden; text-overflow: ellipsis;"
+								th:utext="${book.bookDescription}">...</p>
 							<p class="price">
 								<span th:utext="${book.bookISBN}">...</span> <a href="#"
 									class="ml-2 btn btn-white btn-outline-white">Order</a>

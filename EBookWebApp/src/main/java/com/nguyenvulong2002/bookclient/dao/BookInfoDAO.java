@@ -13,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
 import com.nguyenvulong2002.bookclient.DTO.BookInfoRequest;
 import com.nguyenvulong2002.bookclient.DTO.BookInfoResponse;
 import com.nguyenvulong2002.bookclient.model.BookInfo;
+import com.nguyenvulong2002.bookclient.utils.LoggerUtil;
+import com.nguyenvulong2002.bookclient.utils.LoggerUtil.eStatusLog;
 
 
 @Repository
@@ -20,6 +22,8 @@ public class BookInfoDAO {
 
 	private static final String BASE_URL = "http://54.145.176.109/";
 
+	//private static final String BASE_URL = "http://localhost:9091/";
+	
 	private static final String SEARCH_BOOK_BY_ID = "freebookstore/api/v2/search-book-by-id";
 
 	private static final String SEARCH_LIST_BOOK_BY_KEY_WORD = "freebookstore/api/v2/search-book-by-title";
@@ -54,7 +58,7 @@ public class BookInfoDAO {
 		
 		ResponseEntity<BookInfoResponse[]> model = restTemplate
 				.exchange(query, HttpMethod.POST, httpEntity, BookInfoResponse[].class);
-
+		LoggerUtil.setLog(this, eStatusLog.INFO, "requestBook", requestBook.getBookTitle());
 		return model.getBody()[0];
 
 	}
