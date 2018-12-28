@@ -44,23 +44,24 @@
 			<h2>Books Detail</h2>
 
 			<div class="row no-gutters d-flex">
-				<img class="col-lg-3 d-flex ftco-animate" th:src="${book.coverImage}" alt="Smiley face"
-					height="350px">
+				<img class="col-lg-3 d-flex ftco-animate"
+					th:src="${book.coverImage}" alt="Smiley face" height="350px">
 
 
-				<table class="col-lg-8 d-flex ftco-animate ml-3" >
+				<table class="col-lg-8 d-flex ftco-animate ml-3">
 					<tr>
 						<th>Title</th>
 						<th>Description</th>
-						<th>ISBN</th>
+						<th>Category</th>
 					</tr>
 					<tr>
 						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
 							th:utext="${book.bookTitle}">...</td>
 						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
 							th:utext="${book.bookDescription}">...</td>
-						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
-							th:utext="${book.bookISBN}">...</td>
+						<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"><a
+							th:utext="${book.category}"
+							th:href="@{${'/menuWithSearchData'}(page=1,categoryId=${book.category})}">...</a></td>
 					</tr>
 				</table>
 			</div>
@@ -71,16 +72,18 @@
 					<th>About</th>
 				</tr>
 				<tr th:each="author: ${book.author}">
-					<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
-						th:utext="${author.authorName}">...</td>
+					<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"><a
+							th:utext="${author.authorName}"
+							th:href="@{${'/menuWithSearchData'}(page=1,authorId=${author.authorId})}">...</a></td>
 					<td class="justify-content-center pb-3 pt-3 pl-3 pr-3"
 						th:utext="${author.authorAbout}">...</td>
 				</tr>
 			</table>
-			
+
 			<h2 class="justify-content-center mt-4">Download Link</h2>
-			
-			<a th:href="${book.downloadLink}"><span th:text="${book.downloadLink}"></span></a>
+
+			<a th:href="${book.downloadLink}"><span
+				th:text="${book.downloadLink}"></span></a>
 		</div>
 	</section>
 	<th:block th:include="/_about"></th:block>

@@ -37,7 +37,7 @@ public class BookInfo {
 	@JsonProperty("imageCloud")
 	private String coverImage;
 	
-	@JsonProperty("category")
+	@JsonProperty("categoryId")
 	private String category;
 	
 	@JsonProperty("downloadLink")

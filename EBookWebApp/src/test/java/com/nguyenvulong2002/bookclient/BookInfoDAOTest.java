@@ -13,8 +13,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.nguyenvulong2002.bookclient.DTO.BookInfoRequest;
 import com.nguyenvulong2002.bookclient.DTO.BookInfoResponse;
-import com.nguyenvulong2002.bookclient.dao.BookInfoDAO;
+import com.nguyenvulong2002.bookclient.bf.BookBFImpl;
+import com.nguyenvulong2002.bookclient.bf.IBookBF;
 import com.nguyenvulong2002.bookclient.model.BookInfo;
+import com.nguyenvulong2002.bookclient.pm.DetailBookPM;
+import com.nguyenvulong2002.bookclient.pm.MainBookPM;
 import com.nguyenvulong2002.bookclient.utils.LoggerUtil;
 import com.nguyenvulong2002.bookclient.utils.LoggerUtil.eStatusLog;
 
@@ -27,7 +30,11 @@ public class BookInfoDAOTest {
 	private static final String TITLE = "Spring";
 	
 	@Autowired 
-	private BookInfoDAO bookDao;
+	private MainBookPM bookDao;
+	
+	@Autowired 
+	private DetailBookPM detailBookDao;
+
 	
 	@Test
 	public void getBookByIdTest() {
@@ -37,7 +44,7 @@ public class BookInfoDAOTest {
 		requestBook.setPage("1");
 		requestBook.setRowPerPage("8");
 		
-		BookInfoResponse book = bookDao.getBookById(requestBook);
+		BookInfoResponse book = detailBookDao.execute(requestBook);
 		assertNotNull(book.getBooks());
 	}
 	
@@ -49,7 +56,7 @@ public class BookInfoDAOTest {
 		requestBook.setPage("1");
 		requestBook.setRowPerPage("8");
 		
-		BookInfoResponse list = bookDao.getListBookByTitle(requestBook);
+		BookInfoResponse list = bookDao.execute(requestBook);
 		assertNotNull(list.getBooks());
 		assertFalse(list.getBooks().isEmpty());
 	}

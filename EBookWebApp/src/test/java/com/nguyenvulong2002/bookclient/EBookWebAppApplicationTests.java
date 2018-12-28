@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.nguyenvulong2002.bookclient.dao.BookInfoDAO;
 import com.nguyenvulong2002.bookclient.model.BookInfo;
+import com.nguyenvulong2002.bookclient.pm.MainBookPM;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

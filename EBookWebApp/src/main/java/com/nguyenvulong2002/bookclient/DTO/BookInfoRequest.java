@@ -2,9 +2,11 @@ package com.nguyenvulong2002.bookclient.DTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nguyenvulong2002.bookclient.base.RequestBase;
+import com.nguyenvulong2002.bookclient.base.ResponseBase;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BookInfoRequest {
+public class BookInfoRequest extends RequestBase{
 
 	
 	@JsonProperty("rowPerPage")
@@ -18,15 +20,21 @@ public class BookInfoRequest {
 	
 	@JsonProperty("bookTitle")
 	private String bookTitle;
-
 	
+	@JsonProperty("categoryId")
+	private String categoryId;
+	
+	@JsonProperty("authorId")
+	private String authorId;
 
-	public BookInfoRequest(String rowPerPage, String page, String bookId, String bookTitle) {
+	public BookInfoRequest(String rowPerPage, String page, String bookId, String bookTitle, String categoryId, String authorId) {
 		super();
 		this.rowPerPage = rowPerPage;
 		this.page = page;
 		this.bookId = bookId;
 		this.bookTitle = bookTitle;
+		this.categoryId = categoryId;
+		this.authorId = authorId;
 	}
 
 	public BookInfoRequest() {
@@ -65,5 +73,20 @@ public class BookInfoRequest {
 		this.bookTitle = bookTitle;
 	}
 
-	
+	public String getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(String authorId) {
+		this.authorId = authorId;
+	}
+
 }
